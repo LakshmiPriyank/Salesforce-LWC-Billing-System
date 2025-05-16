@@ -1,0 +1,39 @@
+
+<apex:page renderAs="pdf" controller="InvoicePDFController" showHeader="false" sidebar="false">
+    <h1>🧾 Company Name</h1>
+    <p>GST No: 1234567890ABC</p>
+
+    <hr/>
+
+    <h2>Customer Details:</h2>
+    <p>Name: {!account.Name}</p>
+    <p>Email: {!account.Email__c}</p>
+    <p>Phone: {!account.Phone}</p>
+
+    <h2>Billing Mode: {!billingMode}</h2>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>GST</th>
+            <th>Total</th>
+        </tr>
+        <apex:repeat value="{!lineItems}" var="item">
+            <tr>
+                <td>{!item.Product2.Name}</td>
+                <td>{!item.Quantity}</td>
+                <td>{!item.UnitPrice - item.GST__c}</td>
+                <td>{!item.GST__c}</td>
+                <td>{!item.TotalPrice}</td>
+            </tr>
+        </apex:repeat>
+    </table>
+
+    <br/>
+    <h3>Summary</h3>
+    <p>Subtotal: {!subtotal}</p>
+    <p>Total GST: {!totalGst}</p>
+    <p><b>Grand Total: {!grandTotal}</b></p>
+</apex:page>
